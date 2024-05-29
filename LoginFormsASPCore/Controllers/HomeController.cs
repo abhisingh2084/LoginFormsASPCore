@@ -21,6 +21,10 @@ namespace LoginFormsASPCore.Controllers
 
         public IActionResult lOGIN()
         {
+            if (HttpContext.Session.GetString("UserSession") != null)
+            {
+                RedirectToAction("Dashboard");
+            }
             return View();
         }
 
@@ -64,6 +68,24 @@ namespace LoginFormsASPCore.Controllers
             return View();
         }
 
+        public IActionResult Register()
+        {
+             
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(UserTbl user)
+        {
+            if(ModelState.IsValid)
+            {
+                await context.UserTbls.AddAsync(user);
+                await context.SaveChangesAsync();
+                TempData["Success"] = "Registered Successfully";
+                return RedirectToAction("LOGIN");
+            }
+            return View();
+        }
 
         public IActionResult Privacy()
         {

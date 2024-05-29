@@ -10,10 +10,16 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        @if (ViewBag.Message != null)
-        {
-             
-            <p style="color: red;">@ViewBag.Message</p>
+        @{
+            if (ViewBag.Message != null)
+            {
+
+                <p style="color: red;">@ViewBag.Message</p>
+            }
+            if (TempData["Success"] != null)
+            {
+                <p style="color: green;">@TempData["Success"]</p>
+            }
         }
         <form asp-action="lOGIN">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -31,6 +37,10 @@
                 <input type="submit" value="lOGIN" class="btn btn-primary" />
             </div>
         </form>
+        <br />
+        <p>
+            <a asp-controller="Home" asp-action="Register">Not Registered Yet ? Click here for Register</a>
+        </p>
     </div>
 </div>
 
